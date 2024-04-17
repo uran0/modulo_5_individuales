@@ -1,0 +1,29 @@
+Defina:
+entidad en SQL
+las tres fases de la definición de una base de datos
+tipos de relaciones en sql
+entidad fuerte y débil
+cardinalidad
+grado
+
+Entidad: una entidad se refiere a un objeto o una tabla que representa un conjunto de datos con características comunes. Cada entidad tiene atributos que describen sus propiedades y relaciones con otras entidades. En términos prácticos, una entidad en SQL se suele representar como una tabla en una base de datos, donde cada fila corresponde a una instancia específica de esa entidad y cada columna representa un atributo de esa instancia.
+
+Las 3 fases de la definición de una base de datos: corresponden a diseño conceptual (se centra en comprender los requisitos del negocio y la estructura general de la base de datos), diseño lógico (aquí se traduce el modelo conceptual en un esquema de base de datos relacional, definiendo tablas, columnas y relaciones entre ellas. Se utilizan técnicas como el Modelo Entidad-Relación) y diseño físico (en esta fase se convierte el diseño lógico en una implementación física concreta en un sistema de gestión de bases de datos específico, se crean las tablas, se definen los tipos de datos, restricciones, etc.). En las lecturas de Adalid les llaman análisis de requisitos, modelado de datos y normalización.
+
+Tipos de relaciones: relación uno a uno (1:1) en donde cada fila en la tabla A se relaciona con una fila en la tabla B, y viceversa. Relación uno a muchos (1:N) cuando cada fila en la tabla A se relaciona con cero, una o varias filas en la tabla B, pero cada fila en la tabla B está relacionada con sólo una fila en la tabla A. Finalmente, relación uno a muchos (N:M) en la cual cada fila en la tabla A puede estar relacionada con cero, una o varias filas en la tabla B, y viceversa.
+
+Entidad fuerte y débil: una entidad FUERTE es aquella que tiene una clave primaria propia y puede existir por sí sola en la base de datos. Sus registros son identificados de manera única por su clave primaria y no necesitan depender de ninguna otra entidad para su existencia. Por otro lado, una entidad DÉBIL es aquella que no tiene una clave primaria propia y depende de una entidad fuerte (entidad "padre") para existir.
+
+Cardinalidad: la cardinalidad se refiere a la relación entre el número de filas en una tabla y el número de filas correspondientes en otra tabla relacionada, dicho de otra forma, es la cantidad de veces en que nuestras entidades se relacionan.
+
+Grado: el grado se refiere al número de atributos (columnas) que tiene una relación (tabla). En otras palabras, el grado de una relación es la cantidad de columnas que contiene esa tabla.
+
+Responda:
+Qué son las entidades compuestas?
+	Son entidades en un modelo de datos que están formadas por la combinación de múltiples entidades más simples, se les conoce también como "entidad puente" o "de unión", existen para representar la relación entre dos o más entidades.
+	
+Que importancia tiene el análisis de requisitos en la creación de tablas?
+	Es importante considerar los requisitos del negocio para crear tablas que sean acordes al sistema actual y a necesidades futuras.
+
+Qué importancia tiene la normalización de una base de datos?
+	Como es un proceso que consiste en descomponer tablas grandes en más pequeñas para eliminar datos redundantes y datos duplicados y evitar problemas al insertar, actualizar o eliminar datos; podríamos decir que todo esto es esencial para garantizar la consistencia, integridad y eficiencia de los datos almacenados, lo que a su vez contribuye a la fiabilidad y el rendimiento del sistema en su conjunto.
