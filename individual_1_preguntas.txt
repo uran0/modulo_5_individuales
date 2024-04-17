@@ -1,0 +1,123 @@
+1) Conceptos:
+Base de datos: es una recopilación de datos (de cualquier tipo) que se almacena y organiza electrónicamente en un sistema informático.
+
+Tabla: es una estructura que se utiliza para organizar información (los datos). Existen variados tipos y la que se utiliza depende del tipo de datos que recopila y el tipo de análisis para el cual se usa.
+
+Registro: es una fila dentro de una tabla y que contiene información sobre una entidad específica, vale decir, es una entrada de datos. Por ejemplo, para una tabla de clientes cada registro representa a cada cliente de forma individual.
+
+Columna: es la estructura que define un tipo de dato en particular y que ayuda a organizar la información dentro de la tabla. Cada registro tiene un valor que corresponde a cada columna en la tabla.
+
+Llave primaria: es un campo que define de manera única a cada registro en una tabla (no puede duplicarse). En otras palabras, es un identificador único para cada fila.
+
+Llave foránea: la llave foránea en una tabla hace referencia a la llave primaria de otra tabla; establece una relación permitiendo la conexión y la referencia de datos entre las tablas.
+
+¿Cuál es la relación entre una llave primaria y una llave foránea?
+La llave primaria en una tabla es la columna a la que se hace referencia mediante la llave foránea en otra tabla, lo que permite la integridad referencial y la conexión de datos entre las tablas en una base de datos relacional.
+-------------------------------------------------------------------------------
+2) Tablas presentes en "world": 3
+♦city (4035 registros)
+♦country (239 registros)
+♦countrylanguage (984 registros)
+-------------------------------------------------------------------------------
+3)world:
+♥¿Cuántas ciudades existen en la base de datos?
+usando SELECT COUNT(DISTINCT Name) AS total_ciudades FROM City; he obtenido 3998 registros
+
+♥Si se ordenan los países de acuerdo con su nombre ¿cuál sería el primero y cuál el último?:
+usando SELECT MIN(Name) AS primer_pais, MAX(Name) AS ultimo_pais FROM Country; se obtiene Afghanistan y Zimbabwe
+
+♥Tomando en cuenta todos los países de Sudamérica ¿cuántas ciudades existen entre todos ellos?: 470 ciudades
+WHERE CountryCode IN (
+    SELECT Code
+    FROM Country
+    WHERE Continent = 'South America'
+);
+
+♥Considerando todos los idiomas declarados en la base, ¿cuántos idiomas corresponden a países de Sudamérica?: 21 idiomas
+SELECT COUNT(DISTINCT cl.Language) AS idiomas_sudamerica
+FROM CountryLanguage cl
+JOIN Country c ON cl.CountryCode = c.Code
+WHERE c.Continent = 'South America';
+-------------------------------------------------------------------------------
+4) Creación de una base de datos:
+
+CREATE DATABASE UranoUnido;
+USE UranoUnido;
+CREATE TABLE OPERADORES (
+RUN varchar(10) primary key,
+nombre varchar(20),
+apellido varchar (20), 
+direccion varchar (100),
+correo_electronico varchar (100)
+);
+CREATE TABLE USUARIOS (
+id_coder int primary key auto_increment,
+nombre varchar (20),
+apellido varchar (20),
+correo_electronico varchar (100),
+telefono varchar (30)
+);
+CREATE TABLE CAPACITACION (
+codigo_curso int primary key,
+nombre varchar (20),
+horario varchar (100)
+);
+
+INSERT INTO OPERADORES (RUN, nombre, apellido, direccion, correo_electronico) VALUES
+('12345678-9', 'Juan', 'Perez', 'Calle 123', 'juan@example.com'),
+('98765432-1', 'María', 'González', 'Avenida 456', 'maria@example.com'),
+('45678912-3', 'Pedro', 'Martínez', 'Calle 789', 'pedro@example.com'),
+('78912345-6', 'Ana', 'López', 'Avenida 012', 'ana@example.com'),
+('23456789-0', 'Carlos', 'Rodríguez', 'Calle 345', 'carlos@example.com'),
+('56789012-3', 'Laura', 'Sánchez', 'Avenida 678', 'laura@example.com'),
+('89012345-6', 'Diego', 'Fernández', 'Calle 901', 'diego@example.com'),
+('34567890-1', 'Marta', 'Díaz', 'Avenida 234', 'marta@example.com'),
+('67890123-4', 'José', 'López', 'Calle 567', 'jose@example.com'),
+('01234567-8', 'Sofía', 'Martínez', 'Avenida 890', 'sofia@example.com');
+
+INSERT INTO USUARIOS (nombre, apellido, correo_electronico, telefono) VALUES
+('Juan', 'Perez', 'juan@example.com', '1234567890'),
+('María', 'González', 'maria@example.com', '0987654321'),
+('Pedro', 'Martínez', 'pedro@example.com', '4567891230'),
+('Ana', 'López', 'ana@example.com', '7891234560'),
+('Carlos', 'Rodríguez', 'carlos@example.com', '2345678900'),
+('Laura', 'Sánchez', 'laura@example.com', '5678901230'),
+('Diego', 'Fernández', 'diego@example.com', '8901234560'),
+('Marta', 'Díaz', 'marta@example.com', '3456789010'),
+('José', 'López', 'jose@example.com', '6789012340'),
+('Sofía', 'Martínez', 'sofia@example.com', '0123456780');
+
+ALTER TABLE CAPACITACION MODIFY codigo_curso INT AUTO_INCREMENT;
+
+INSERT INTO CAPACITACION (nombre, horario) VALUES
+('Curso 1', '2024-04-06 09:00:00'),
+('Curso 2', '2024-04-07 14:00:00'),
+('Curso 3', '2024-04-08 10:30:00'),
+('Curso 4', '2024-04-09 11:00:00'),
+('Curso 5', '2024-04-10 15:30:00'),
+('Curso 6', '2024-04-11 08:45:00'),
+('Curso 7', '2024-04-12 13:20:00'),
+('Curso 8', '2024-04-13 09:45:00'),
+('Curso 9', '2024-04-14 12:00:00'),
+('Curso 10', '2024-04-15 16:00:00');
+-------------------------------------------------------------------------------
+5) Sakila:
+♥¿Cuántas películas están registradas? 4581 películas registradas
+select count(*) as total_inventario from inventory;
+
+♥¿Cuántos clientes existen en la base de datos? 599 clientes
+select COUNT(*) as total_clientes from customer;
+
+♥¿Cuántos títulos existen en inventario? 1000 registros
+SELECT COUNT(*) AS total_peliculas FROM film;
+
+♥¿Cuál es la película más arrendada? Bucket Brotherhood (34 veces arrendada)
+SELECT f.title AS pelicula, COUNT(*) AS total_arriendos
+FROM film f
+JOIN inventory i ON f.film_id = i.film_id
+JOIN rental r ON i.inventory_id = r.inventory_id
+GROUP BY f.title
+ORDER BY total_arriendos DESC
+LIMIT 1;
+-------------------------------------------------------------------------------
+Mientras Workbench es una herramienta de administración de datos con interfaz visual, Shell es netamente de línea de comandos, por lo que apuntan a diferentes tipos de usuario (Shell es para usuarios más experimentados que se manejan más con el scripting, Workbench para aquellos que prefieren la organización gráfica), aún así, ambos permiten administrar las bases de datos, ejecutar consultas, administrar usuarios y permisos, importar y exportar datos, entre otros.
